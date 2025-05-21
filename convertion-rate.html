@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convert to OMR</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #00796b;
+    }
+
+    .input-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      text-align: center;
+      color: #004d40;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Convert Currency to OMR</h1>
+
+    <div class="input-group">
+      <label for="sar">Amount in SAR:</label>
+      <input type="number" id="sar" placeholder="e.g. 100" oninput="convertToOMR()">
+    </div>
+    <div class="input-group">
+      <label for="aed">Amount in AED:</label>
+      <input type="number" id="aed" placeholder="e.g. 100" oninput="convertToOMR()">
+    </div>
+    <div class="input-group">
+      <label for="usd">Amount in USD:</label>
+      <input type="number" id="usd" placeholder="e.g. 100" oninput="convertToOMR()">
+    </div>
+    <div class="input-group">
+      <label for="jod">Amount in JOD:</label>
+      <input type="number" id="jod" placeholder="e.g. 100" oninput="convertToOMR()">
+    </div>
+
+    <div class="result">
+      Equivalent OMR: <span id="omrResult">0.000</span>
+    </div>
+
+    <div class="footer">Static conversion rates used. Last updated: May 2025</div>
+  </div>
+
+  <script>
+    const rates = {
+      SAR: 9.468,
+      AED: 9.271,
+      USD: 0.396,
+      JOD: 1.787
+    };
+
+    function convertToOMR() {
+      const sar = parseFloat(document.getElementById('sar').value) || 0;
+      const aed = parseFloat(document.getElementById('aed').value) || 0;
+      const usd = parseFloat(document.getElementById('usd').value) || 0;
+      const jod = parseFloat(document.getElementById('jod').value) || 0;
+
+      const omrFromSAR = sar / rates.SAR;
+      const omrFromAED = aed / rates.AED;
+      const omrFromUSD = usd * rates.USD;
+      const omrFromJOD = jod / rates.JOD;
+
+      // Total OMR from all inputs
+      const totalOMR = omrFromSAR + omrFromAED + omrFromUSD + omrFromJOD;
+
+      document.getElementById('omrResult').textContent = totalOMR.toFixed(3);
+    }
+  </script>
+</body>
+</html>
